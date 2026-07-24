@@ -1,0 +1,177 @@
+:root {
+  --ink: #1e2530;
+  --ink-soft: #5b6472;
+  --paper: #ffffff;
+  --paper-sunk: #f4f6f8;
+  --line: #e3e7ec;
+  --accent: #2f6fed;
+  --accent-soft: #eaf0fe;
+  --good: #1a7f5a;
+  --good-soft: #e7f6ef;
+  --warn: #b3541e;
+  --warn-soft: #fbeee2;
+  --radius: 8px;
+  font-size: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand { display: flex; align-items: center; gap: 8px; }
+.brand-dot {
+  width: 10px; height: 10px; border-radius: 3px;
+  background: var(--accent);
+  display: inline-block;
+}
+.brand-name { font-weight: 600; font-size: 15px; letter-spacing: 0.2px; }
+
+.connection-state {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--ink-soft);
+}
+.connection-state .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--warn);
+}
+.connection-state--on .dot { background: var(--good); }
+.connection-state--on .label { color: var(--good); }
+
+.view { padding: 16px; flex: 1; }
+.hidden { display: none !important; }
+
+.intro { color: var(--ink-soft); line-height: 1.5; margin-bottom: 16px; }
+
+.btn {
+  border: none;
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn--primary { background: var(--accent); color: white; }
+.btn--primary:hover { background: #2559c4; }
+.btn--ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn--ghost:hover { background: var(--paper-sunk); }
+
+.error {
+  color: #b3261e;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.calendar-picker { margin-bottom: 16px; }
+.calendar-picker label,
+.chat-panel label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+#calendarSelect {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 13px;
+  background: var(--paper);
+}
+
+.chat-panel { margin-bottom: 18px; }
+#promptInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 13px;
+  resize: vertical;
+  margin-bottom: 8px;
+}
+
+.proposals { margin-bottom: 20px; }
+.proposals h2, .events-section h2 {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+.hint { font-size: 12px; color: var(--ink-soft); margin: 0 0 10px 0; }
+
+.proposals-list, .events-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.proposal-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  background: var(--paper-sunk);
+}
+.proposal-card .p-title { font-weight: 600; font-size: 13px; }
+.proposal-card .p-meta { font-size: 12px; color: var(--ink-soft); margin: 4px 0 8px; }
+.proposal-actions { display: flex; gap: 8px; }
+.proposal-actions .btn { padding: 6px 10px; font-size: 12px; }
+.btn--confirm { background: var(--good); color: white; }
+.btn--confirm:hover { background: #146349; }
+.btn--reject { background: var(--warn-soft); color: var(--warn); }
+.btn--reject:hover { background: #f5ddc8; }
+
+.events-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.event-card {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 8px 10px;
+  font-size: 12.5px;
+}
+.event-card .e-title { font-weight: 600; }
+.event-card .e-time { color: var(--ink-soft); }
+.event-card .e-cal { color: var(--ink-soft); font-style: italic; }
+
+.events-empty {
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  padding: 10px;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+.app-footer {
+  border-top: 1px solid var(--line);
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--ink-soft);
+}

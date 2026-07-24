@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EAsync — Agent calendrier</title>
+
+  <link rel="stylesheet" href="taskpane.css" />
+
+  <!-- Office JS -->
+  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+
+  <!-- MSAL.js pour l'auth déléguée vers Microsoft Graph -->
+  <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span class="brand-name">EAsync</span>
+      </div>
+      <div id="connectionState" class="connection-state connection-state--off">
+        <span class="dot"></span>
+        <span class="label">Non connecté</span>
+      </div>
+    </header>
+
+    <!-- Écran de connexion -->
+    <section id="signInView" class="view">
+      <p class="intro">
+        Connecte-toi avec ton compte Rail Europe pour donner à l'agent accès à ton calendrier
+        et à ceux que des collègues t'ont partagés — rien de plus.
+      </p>
+      <button id="signInBtn" class="btn btn--primary">Se connecter</button>
+      <p id="signInError" class="error hidden"></p>
+    </section>
+
+    <!-- Écran principal (après connexion) -->
+    <section id="mainView" class="view hidden">
+
+      <div class="calendar-picker">
+        <label for="calendarSelect">Calendrier actif</label>
+        <select id="calendarSelect"></select>
+      </div>
+
+      <div class="chat-panel">
+        <label for="promptInput">Demande à l'agent</label>
+        <textarea id="promptInput" rows="3" placeholder="Ex : Trouve un créneau d'1h avec Marc jeudi après-midi et propose-le"></textarea>
+        <button id="askBtn" class="btn btn--primary">Analyser</button>
+      </div>
+
+      <div id="proposalsSection" class="proposals hidden">
+        <h2>Actions proposées</h2>
+        <p class="hint">Rien n'est écrit sur ton calendrier tant que tu n'as pas validé chaque ligne.</p>
+        <ul id="proposalsList" class="proposals-list"></ul>
+      </div>
+
+      <div class="events-section">
+        <div class="events-header">
+          <h2>Vue calendrier (contrôle live)</h2>
+          <button id="refreshBtn" class="btn btn--ghost" title="Rafraîchir">↻</button>
+        </div>
+        <ul id="eventsList" class="events-list">
+          <li class="events-empty">Sélectionne un calendrier pour afficher les événements réels.</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <footer class="app-footer">
+      <span id="statusLine">Prêt.</span>
+    </footer>
+  </div>
+
+  <script type="text/javascript" src="config.js"></script>
+  <script type="text/javascript" src="auth.js"></script>
+  <script type="text/javascript" src="graph.js"></script>
+  <script type="text/javascript" src="taskpane.js"></script>
+</body>
+</html>
