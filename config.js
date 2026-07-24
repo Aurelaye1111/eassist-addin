@@ -14,7 +14,7 @@ const CONFIG = {
   auth: {
     clientId: "REMPLACER_PAR_CLIENT_ID_FOURNI_PAR_IT",
     tenantId: "REMPLACER_PAR_TENANT_ID_FOURNI_PAR_IT",
-    redirectUri: "https://VOTRE-USERNAME.github.io/eassist-addin/taskpane.html",
+    redirectUri: "https://aurelaye1111.github.io/eassist-addin/taskpane.html",
   },
 
   // Scopes délégués Graph nécessaires (doivent correspondre à ceux
