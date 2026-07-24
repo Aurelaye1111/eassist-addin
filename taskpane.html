@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EAsync — Agent calendrier</title>
+  <title>EAsync — Calendar Agent</title>
 
   <link rel="stylesheet" href="taskpane.css" />
 
   <!-- Office JS -->
   <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
-  <!-- MSAL.js pour l'auth déléguée vers Microsoft Graph -->
+  <!-- MSAL.js for delegated auth to Microsoft Graph -->
   <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
 </head>
 <body>
@@ -23,54 +23,54 @@
       </div>
       <div id="connectionState" class="connection-state connection-state--off">
         <span class="dot"></span>
-        <span class="label">Non connecté</span>
+        <span class="label">Not connected</span>
       </div>
     </header>
 
-    <!-- Écran de connexion -->
+    <!-- Sign-in screen -->
     <section id="signInView" class="view">
       <p class="intro">
-        Connecte-toi avec ton compte Rail Europe pour donner à l'agent accès à ton calendrier
-        et à ceux que des collègues t'ont partagés — rien de plus.
+        Sign in with your Rail Europe account to give the agent access to your calendar
+        and any calendars colleagues have shared with you — nothing more.
       </p>
-      <button id="signInBtn" class="btn btn--primary">Se connecter</button>
+      <button id="signInBtn" class="btn btn--primary">Sign in</button>
       <p id="signInError" class="error hidden"></p>
     </section>
 
-    <!-- Écran principal (après connexion) -->
+    <!-- Main screen (after sign-in) -->
     <section id="mainView" class="view hidden">
 
       <div class="calendar-picker">
-        <label for="calendarSelect">Calendrier actif</label>
+        <label for="calendarSelect">Active calendar</label>
         <select id="calendarSelect"></select>
       </div>
 
       <div class="chat-panel">
-        <label for="promptInput">Demande à l'agent</label>
-        <textarea id="promptInput" rows="3" placeholder="Ex : Trouve un créneau d'1h avec Marc jeudi après-midi et propose-le"></textarea>
-        <button id="askBtn" class="btn btn--primary">Analyser</button>
+        <label for="promptInput">Ask the agent</label>
+        <textarea id="promptInput" rows="3" placeholder="E.g.: Find a 1-hour slot with Marc on Thursday afternoon and propose it"></textarea>
+        <button id="askBtn" class="btn btn--primary">Analyze</button>
       </div>
 
       <div id="proposalsSection" class="proposals hidden">
-        <h2>Actions proposées</h2>
-        <p class="hint">Rien n'est écrit sur ton calendrier tant que tu n'as pas validé chaque ligne.</p>
+        <h2>Proposed actions</h2>
+        <p class="hint">Nothing is written to your calendar until you approve each item.</p>
         <ul id="proposalsList" class="proposals-list"></ul>
       </div>
 
       <div class="events-section">
         <div class="events-header">
-          <h2>Vue calendrier (contrôle live)</h2>
-          <button id="refreshBtn" class="btn btn--ghost" title="Rafraîchir">↻</button>
+          <h2>Calendar view (live check)</h2>
+          <button id="refreshBtn" class="btn btn--ghost" title="Refresh">↻</button>
         </div>
         <ul id="eventsList" class="events-list">
-          <li class="events-empty">Sélectionne un calendrier pour afficher les événements réels.</li>
+          <li class="events-empty">Select a calendar to show its real events.</li>
         </ul>
       </div>
 
     </section>
 
     <footer class="app-footer">
-      <span id="statusLine">Prêt.</span>
+      <span id="statusLine">Ready.</span>
     </footer>
   </div>
 

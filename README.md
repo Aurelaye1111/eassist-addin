@@ -1,81 +1,81 @@
-# EAsync Calendrier — Add-in Outlook
+# EAsync Calendar — Outlook Add-in
 
-Agent IA de gestion de calendrier, intégré directement dans Outlook (task pane),
-pour ton calendrier et ceux que des collègues t'ont déjà partagés.
+AI calendar agent, embedded directly in Outlook (task pane), for your
+calendar and any calendars colleagues have already shared with you.
 
-Ce projet est livré **prêt à héberger**, sans étape de build de ton côté (pas
-besoin de Node/npm sur ton poste).
+This project ships ready to host — no build step on your side needed
+(no Node/npm required on your machine).
 
-## État actuel
+## Current status
 
-- ✅ Manifest + task pane fonctionnels en **mode mock** (données simulées)
-- ⏳ Connexion à Microsoft Graph : en attente du client ID/tenant ID de l'IT
-- ⏳ Compréhension du langage naturel : en attente d'un petit backend (voir plus bas)
+- ✅ Manifest + task pane working in **mock mode** (simulated data)
+- ⏳ Microsoft Graph connection: waiting on IT for the client ID/tenant ID
+- ⏳ Natural-language understanding: waiting on a small backend (see below)
 
-## 1. Héberger les fichiers sur GitHub Pages
+## 1. Host the files on GitHub Pages
 
-1. Crée un repo GitHub (public ou privé, peu importe) — par exemple `eassist-addin`.
-2. Mets-y tous les fichiers de ce dossier (`manifest.xml`, `taskpane.html`,
+1. Create a GitHub repo (public or private) — e.g. `eassist-addin`.
+2. Put all the files from this folder in it (`manifest.xml`, `taskpane.html`,
    `taskpane.css`, `taskpane.js`, `auth.js`, `graph.js`, `config.js`, `assets/`).
-3. Dans le repo GitHub : **Settings > Pages > Source** → sélectionne la branche
-   `main` et le dossier `/ (root)`. Sauvegarde.
-4. GitHub te donne une URL du type `https://TON-USERNAME.github.io/eassist-addin/`.
-5. Remplace **toutes** les occurrences de `VOTRE-USERNAME` dans `manifest.xml`
-   et `config.js` par cette URL réelle (recherche/remplace).
+3. In the repo: **Settings > Pages > Source** → select the `main` branch and
+   `/ (root)` folder. Save.
+4. GitHub gives you a URL like `https://YOUR-USERNAME.github.io/eassist-addin/`.
+5. Replace every occurrence of the placeholder host in `manifest.xml` and
+   `config.js` with this real URL.
 
-## 2. Sideloader l'add-in dans Outlook
+## 2. Sideload the add-in in Outlook
 
-- Génère un GUID unique pour `<Id>` dans `manifest.xml` (PowerShell :
-  `[guid]::NewGuid()`, ou un générateur en ligne).
-- Dans Outlook sur le web : **Paramètres (roue crantée) > Gérer les compléments
-  > Mes compléments > Ajouter un complément personnalisé > Ajouter depuis un
-  fichier** → sélectionne ton `manifest.xml`.
-- Si ça échoue avec "Sideloading rejected by Exchange", c'est un réglage tenant
-  (`AppsForOfficeEnabled` ou politique de rôle Exchange) — à faire lever par
-  l'IT, pas un souci côté toi.
+- Generate a unique GUID for `<Id>` in `manifest.xml` (PowerShell:
+  `[guid]::NewGuid()`, or an online generator).
+- In Outlook on the web: **Settings (gear icon) > Manage add-ins > My add-ins
+  > Add a custom add-in > Add from File** → select your `manifest.xml`.
+- If it fails with "Sideloading rejected by Exchange", that's a tenant setting
+  (`AppsForOfficeEnabled` or Exchange role assignment policy) — for IT, not
+  something to chase on your side.
 
-## 3. Ce qu'il faut demander à l'IT (ticket unique, à regrouper avec la demande
-   Graph déjà en cours pour EAsync)
+## 3. What to ask IT for (a single ticket, ideally grouped with the Graph
+   request already in progress for EAsync)
 
-- Créer un **App Registration** Entra ID (plateforme "Single-page application",
-  redirect URI = l'URL GitHub Pages de `taskpane.html`)
-- Consentement admin sur : `User.Read`, `Calendars.ReadWrite`,
+- Create an **App Registration** in Entra ID ("Single-page application"
+  platform, redirect URI = the GitHub Pages URL of `taskpane.html`)
+- Admin consent for: `User.Read`, `Calendars.ReadWrite`,
   `Calendars.Read.Shared`, `Calendars.ReadWrite.Shared`
-- Vérifier `AppsForOfficeEnabled` + politique de rôle Exchange pour le sideloading
+- Check `AppsForOfficeEnabled` + Exchange role assignment policy for sideloading
 
-Une fois reçus, remplace `clientId` et `tenantId` dans `config.js`, et passe
-`mockMode` à `false`.
+Once received, fill in `clientId` and `tenantId` in `config.js`, and set
+`mockMode` to `false`.
 
-## 4. Point d'attention : la compréhension du langage naturel
+## 4. A note on natural-language understanding
 
-Le fichier `taskpane.js` contient un stub très basique (`stubParsePrompt`) à la
-place d'un vrai appel à un LLM. **Ce fichier tourne dans le navigateur** — on ne
-peut pas y mettre une clé API Claude en clair, elle serait visible par
-n'importe qui via l'inspecteur du navigateur.
+`taskpane.js` currently contains a very basic stub (`stubParsePrompt`)
+instead of a real LLM call. **This file runs in the browser** — we can't put
+a Claude API key in plain text here, it would be visible to anyone via the
+browser inspector.
 
-Il faut un petit backend intermédiaire (proxy) qui :
-1. reçoit le texte de la demande depuis le task pane,
-2. appelle l'API Claude côté serveur (clé API gardée secrète côté serveur),
-3. renvoie une liste d'actions structurées (JSON) au task pane.
+A small backend proxy is needed that:
+1. receives the request text from the task pane,
+2. calls the Claude API server-side (API key kept secret server-side),
+3. returns a structured list of actions (JSON) back to the task pane.
 
-Options légères, sans gérer de serveur en continu : Azure Function (cohérent
-avec votre écosystème Microsoft), Cloudflare Worker, ou AWS Lambda. On peut
-coder ce proxy ensemble dès que tu sais lequel de ces trois est le plus simple
-à faire héberger côté IT.
+Lightweight options, no server to run continuously: Azure Function
+(consistent with your Microsoft ecosystem), Cloudflare Worker, or AWS Lambda.
+We can build this proxy together once you know which of these three is
+easiest to get IT to host.
 
-## Structure des fichiers
+## File structure
 
 ```
 eassist-addin/
-├── manifest.xml      # déclaration de l'add-in pour Outlook
+├── manifest.xml      # add-in declaration for Outlook
 ├── taskpane.html      # UI
 ├── taskpane.css        # styles
-├── taskpane.js          # logique UI + orchestration
-├── auth.js               # connexion MSAL (déléguée)
-├── graph.js               # appels Microsoft Graph (calendriers/événements)
-├── config.js               # clientId/tenantId/scopes — à compléter
+├── taskpane.js          # UI logic + orchestration
+├── auth.js               # MSAL sign-in (delegated)
+├── graph.js               # Microsoft Graph calls (calendars/events)
+├── config.js               # clientId/tenantId/scopes — to fill in
 └── assets/
     ├── icon-16.png
     ├── icon-32.png
-    └── icon-80.png
+    ├── icon-80.png
+    └── icon-128.png
 ```

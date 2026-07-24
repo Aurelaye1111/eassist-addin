@@ -1,24 +1,24 @@
 // ============================================================
-// CONFIG — à compléter dès que l'IT a créé l'App Registration
+// CONFIG — fill in once IT has created the App Registration
 // ============================================================
 //
-// Où trouver ces valeurs dans le portail Azure/Entra :
-// Entra ID > App registrations > (ton app) > Overview
+// Where to find these values in the Azure/Entra portal:
+// Entra ID > App registrations > (your app) > Overview
 //   - clientId    = "Application (client) ID"
 //   - tenantId    = "Directory (tenant) ID"
-// Entra ID > App registrations > (ton app) > Authentication
-//   - ajouter une plateforme "Single-page application"
-//   - redirectUri = l'URL GitHub Pages de taskpane.html (celle ci-dessous)
+// Entra ID > App registrations > (your app) > Authentication
+//   - add a "Single-page application" platform
+//   - redirectUri = the GitHub Pages URL of taskpane.html (below)
 //
 const CONFIG = {
   auth: {
-    clientId: "REMPLACER_PAR_CLIENT_ID_FOURNI_PAR_IT",
-    tenantId: "REMPLACER_PAR_TENANT_ID_FOURNI_PAR_IT",
+    clientId: "REPLACE_WITH_CLIENT_ID_FROM_IT",
+    tenantId: "REPLACE_WITH_TENANT_ID_FROM_IT",
     redirectUri: "https://aurelaye1111.github.io/eassist-addin/taskpane.html",
   },
 
-  // Scopes délégués Graph nécessaires (doivent correspondre à ceux
-  // consentis côté Azure — cf. ticket IT)
+  // Required delegated Graph scopes (must match the ones consented
+  // to on the Azure side — see the IT ticket)
   graphScopes: [
     "User.Read",
     "Calendars.ReadWrite",
@@ -26,8 +26,8 @@ const CONFIG = {
     "Calendars.ReadWrite.Shared",
   ],
 
-  // Tant que l'App Registration n'est pas prête côté IT, on travaille
-  // en mode mock : aucune vraie donnée n'est lue/écrite, tout est simulé
-  // pour qu'on puisse itérer sur l'UX sans attendre.
+  // Until the App Registration is ready on IT's side, we work in
+  // mock mode: no real data is read or written, everything is
+  // simulated so we can iterate on the UX without waiting.
   mockMode: true,
 };

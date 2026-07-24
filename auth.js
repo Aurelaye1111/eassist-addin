@@ -1,5 +1,5 @@
 // ============================================================
-// AUTH — connexion déléguée via MSAL.js (auth code flow + PKCE)
+// AUTH — delegated sign-in via MSAL.js (auth code flow + PKCE)
 // ============================================================
 
 let msalInstance = null;
@@ -15,8 +15,8 @@ function getMsalInstance() {
       redirectUri: CONFIG.auth.redirectUri,
     },
     cache: {
-      // sessionStorage : évite de garder un token si quelqu'un d'autre
-      // reprend le même poste plus tard
+      // sessionStorage: avoids keeping a token around if someone else
+      // uses the same machine later
       cacheLocation: "sessionStorage",
     },
   });
@@ -26,7 +26,7 @@ function getMsalInstance() {
 
 async function signIn() {
   if (CONFIG.mockMode) {
-    activeAccount = { name: "Aurélie (mode démo)", username: "demo@raileurope.com" };
+    activeAccount = { name: "Aurelie (demo mode)", username: "demo@raileurope.com" };
     return activeAccount;
   }
 
@@ -42,7 +42,7 @@ async function getAccessToken() {
 
   const instance = getMsalInstance();
   const account = instance.getActiveAccount();
-  if (!account) throw new Error("Pas de session active — connecte-toi d'abord.");
+  if (!account) throw new Error("No active session — please sign in first.");
 
   try {
     const result = await instance.acquireTokenSilent({
@@ -51,8 +51,8 @@ async function getAccessToken() {
     });
     return result.accessToken;
   } catch (err) {
-    // Le token silencieux a échoué (expiré, consentement manquant...) :
-    // on retente via popup, qui redemandera un consentement si besoin.
+    // Silent token acquisition failed (expired, missing consent...):
+    // retry via popup, which will re-prompt for consent if needed.
     const result = await instance.acquireTokenPopup({ scopes: CONFIG.graphScopes });
     return result.accessToken;
   }

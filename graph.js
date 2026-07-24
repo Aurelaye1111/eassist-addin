@@ -1,25 +1,25 @@
 // ============================================================
-// GRAPH — accès calendriers (le tien + ceux partagés avec toi)
+// GRAPH — calendar access (yours + any shared with you)
 // ============================================================
-// Rappel important : Graph ne donne jamais plus d'accès que ce
-// qui existe déjà côté Outlook. Un calendrier délégué "lecture seule"
-// reste lecture seule ici — l'agent ne peut pas contourner ça.
+// Important reminder: Graph never grants more access than what
+// already exists on the Outlook side. A "read-only" delegated
+// calendar stays read-only here — the agent cannot work around that.
 
 const GRAPH_BASE = "https://graph.microsoft.com/v1.0";
 
 const MOCK_CALENDARS = [
-  { id: "me", name: "Mon calendrier", owner: "Aurélie Plisson", rights: "write" },
-  { id: "mock-bjorn", name: "Björn Bender", owner: "Björn Bender", rights: "read" },
-  { id: "mock-marc", name: "Marc (perso partagé)", owner: "Marc Plisson", rights: "write" },
+  { id: "me", name: "My calendar", owner: "Aurelie Plisson", rights: "write" },
+  { id: "mock-bjorn", name: "Bjorn Bender", owner: "Bjorn Bender", rights: "read" },
+  { id: "mock-marc", name: "Marc (shared personal)", owner: "Marc Plisson", rights: "write" },
 ];
 
 const MOCK_EVENTS = {
   me: [
-    { id: "e1", title: "Point OKR FY26-27", start: "2026-07-24T09:00:00", end: "2026-07-24T09:30:00" },
-    { id: "e2", title: "Suivi Project Orient", start: "2026-07-24T14:00:00", end: "2026-07-24T15:00:00" },
+    { id: "e1", title: "OKR FY26-27 check-in", start: "2026-07-24T09:00:00", end: "2026-07-24T09:30:00" },
+    { id: "e2", title: "Project Orient follow-up", start: "2026-07-24T14:00:00", end: "2026-07-24T15:00:00" },
   ],
   "mock-bjorn": [
-    { id: "e3", title: "CODIR", start: "2026-07-24T10:00:00", end: "2026-07-24T11:00:00" },
+    { id: "e3", title: "Exec Team Meeting", start: "2026-07-24T10:00:00", end: "2026-07-24T11:00:00" },
   ],
   "mock-marc": [],
 };
@@ -41,21 +41,21 @@ async function graphFetch(path, options = {}) {
   return res.status === 204 ? null : res.json();
 }
 
-// Liste les calendriers accessibles : le tien + ceux déjà partagés/délégués.
+// Lists accessible calendars: yours + any already shared/delegated.
 async function listCalendars() {
   if (CONFIG.mockMode) return MOCK_CALENDARS;
 
-  // /me/calendars renvoie tes propres calendriers.
-  // Les calendriers de collègues qui t'ont donné un accès délégué
-  // s'obtiennent en listant chaque personne connue (ex: via /me/people
-  // ou une liste que tu maintiens toi-même), puis en appelant
-  // /users/{id|upn}/calendar pour chacune — Graph refusera si le
-  // partage n'a pas été fait côté Outlook.
+  // /me/calendars returns your own calendars.
+  // Colleagues' calendars that were delegated to you are fetched by
+  // listing each known person (e.g. via /me/people, or a list you
+  // maintain yourself), then calling /users/{id|upn}/calendar for
+  // each one — Graph will refuse if the sharing wasn't done on the
+  // Outlook side.
   const mine = await graphFetch("/me/calendars");
   return mine.value.map((c) => ({
     id: c.id,
     name: c.name,
-    owner: "Moi",
+    owner: "Me",
     rights: c.canEdit ? "write" : "read",
   }));
 }
