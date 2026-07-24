@@ -8,16 +8,16 @@
 
   <!-- IMPORTANT : générer un nouveau GUID unique pour ce projet
        (PowerShell: [guid]::NewGuid() ou https://www.guidgenerator.com) -->
-  <Id>00000000-0000-0000-0000-000000000000</Id>
+  <Id>7f3a2e91-4c6d-4b8a-9e15-2d8f6a3c9b70</Id>
 
   <Version>1.0.0.0</Version>
   <ProviderName>Aurélie Plisson</ProviderName>
   <DefaultLocale>fr-FR</DefaultLocale>
   <DisplayName DefaultValue="EAsync Calendrier" />
   <Description DefaultValue="Agent IA pour identifier, créer et modifier des réunions sur vos calendriers Outlook et ceux partagés avec vous." />
-  <IconUrl DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/assets/icon-32.png" />
-  <HighResIconUrl DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/assets/icon-80.png" />
-  <SupportUrl DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/" />
+  <IconUrl DefaultValue="https://aurelaye1111.github.io/eassist-addin/assets/icon-32.png" />
+  <HighResIconUrl DefaultValue="https://aurelaye1111.github.io/eassist-addin/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://aurelaye1111.github.io/eassist-addin/" />
 
   <AppDomains>
     <AppDomain>https://login.microsoftonline.com</AppDomain>
@@ -36,7 +36,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/taskpane.html" />
+        <SourceLocation DefaultValue="https://aurelaye1111.github.io/eassist-addin/taskpane.html" />
       </DesktopSettings>
     </Form>
   </FormSettings>
@@ -113,13 +113,13 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/assets/icon-16.png" />
-        <bt:Image id="Icon.32x32" DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/assets/icon-32.png" />
-        <bt:Image id="Icon.80x80" DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/assets/icon-80.png" />
+        <bt:Image id="Icon.16x16" DefaultValue="https://aurelaye1111.github.io/eassist-addin/assets/icon-16.png" />
+        <bt:Image id="Icon.32x32" DefaultValue="https://aurelaye1111.github.io/eassist-addin/assets/icon-32.png" />
+        <bt:Image id="Icon.80x80" DefaultValue="https://aurelaye1111.github.io/eassist-addin/assets/icon-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/taskpane.html" />
-        <bt:Url id="Taskpane.Url" DefaultValue="https://VOTRE-USERNAME.github.io/eassist-addin/taskpane.html" />
+        <bt:Url id="Commands.Url" DefaultValue="https://aurelaye1111.github.io/eassist-addin/taskpane.html" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://aurelaye1111.github.io/eassist-addin/taskpane.html" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="EAsync" />
