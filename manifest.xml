@@ -16,7 +16,7 @@
   <DisplayName DefaultValue="EAsync Calendrier" />
   <Description DefaultValue="Agent IA pour identifier, créer et modifier des réunions sur vos calendriers Outlook et ceux partagés avec vous." />
   <IconUrl DefaultValue="https://aurelaye1111.github.io/eassist-addin/assets/icon-32.png" />
-  <HighResIconUrl DefaultValue="https://aurelaye1111.github.io/eassist-addin/assets/icon-80.png" />
+  <HighResolutionIconUrl DefaultValue="https://aurelaye1111.github.io/eassist-addin/assets/icon-128.png" />
   <SupportUrl DefaultValue="https://aurelaye1111.github.io/eassist-addin/" />
 
   <AppDomains>
